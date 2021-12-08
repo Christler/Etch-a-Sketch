@@ -1,11 +1,14 @@
-.container{
-    display: grid;
-    grid-template-columns: auto auto auto auto;
-}
-
-.square{
-    width: 100px;
-    height: 100px;
-    background: red;
-    margin: 5px;
-}
+body{
+    margin: 0;
+  }
+  
+  .container{
+    height: 500px;
+    width: 500px;
+    margin: auto;
+    background: lightgrey;
+    display: grid ;
+  }
+  
+  .square{
+  }
