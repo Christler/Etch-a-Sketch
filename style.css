@@ -1,14 +1,23 @@
 body{
-    margin: 0;
-  }
-  
-  .container{
-    height: 500px;
-    width: 500px;
-    margin: auto;
-    background: lightgrey;
-    display: grid ;
-  }
-  
-  .square{
-  }
+  margin: 0;
+}
+
+h1{
+  text-align: center;
+}
+
+.selection-container{
+  display: flex;  
+  justify-content: center;
+}
+
+.container{
+  height: 500px;
+  width: 500px;
+  margin: auto;
+  display: grid;
+  outline: 1px solid black;
+}
+
+.square{
+}

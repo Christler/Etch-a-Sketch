@@ -1,26 +1,70 @@
 let squaresPerRow = 4
-const container = document.querySelector(".container")
-const clearBtn = document.querySelector(".clear-btn")
-clearBtn.addEventListener("click", clearGrid)
 let squares
+let shaderSelected = false
+let rainbowSelected = false
+let colorSelected = true
+const container = document.querySelector(".container")
+const colorPicker = document.querySelector(".color-picker")
+const shaderBtn = document.querySelector(".shader-btn")
+const rainbowBtn = document.querySelector(".rainbow-btn")
+const clearBtn = document.querySelector(".clear-btn")
 const slider = document.querySelector(".slider")
-const gridSize = document.querySelector(".grid-size")
+const gridSizeOutput = document.querySelector(".grid-size")
+gridSizeOutput.innerHTML = `${squaresPerRow} X ${squaresPerRow}`
+
+//add listeners to buttons and color picker
+colorPicker.addEventListener("input", () => {
+  colorSelected = true
+  shaderSelected = false
+  rainbowSelected = false
+})
+shaderBtn.addEventListener("click", () => { 
+  shaderSelected = true
+  rainbowSelected = false
+  colorSelected = false
+})
+rainbowBtn.addEventListener("click", () => { 
+  shaderSelected = false
+  rainbowSelected = true
+  colorSelected = false
+})
+clearBtn.addEventListener("click", clearGrid)
 
 slider.oninput = function() {
-    gridSize.innerHTML = this.value;
+  squaresPerRow = this.value  
+  gridSizeOutput.innerHTML = `${squaresPerRow} X ${squaresPerRow}`
+  fillGrid()  
 }
 
 function changeBackground(e){
-  let r = Math.floor(Math.random() * 255)
-  let g = Math.floor(Math.random() * 255)
-  let b = Math.floor(Math.random() * 255)
-  let color = `rgb(${r}, ${g}, ${b})`
+  let color
+  if(rainbowSelected){
+    let r = Math.floor(Math.random() * 255)
+    let g = Math.floor(Math.random() * 255)
+    let b = Math.floor(Math.random() * 255)
+    color = `rgb(${r}, ${g}, ${b})`
+  }
+  
+  if(shaderSelected){
+    if(e.target.style.background === ""){
+      color = "rgb(220, 220, 220)"
+    }else{
+      let rgbValuesArr = e.target.style.background.replace(/[rgb()]/g, "").split(",").map(Number)
+      let r = rgbValuesArr[0] - 20
+      let g = rgbValuesArr[1] - 20
+      let b = rgbValuesArr[2] - 20
+      color = `rgb(${r}, ${g}, ${b})`
+    }
+  }
+  
+  if(colorSelected){
+    color = colorPicker.value
+  }
   e.target.style.background = color
 }
 
 function clearGrid(){
   squares.forEach(square => square.style.background = "lightgrey")
-  squaresPerRow = prompt("How many squares per side?")
   fillGrid()
 }
 
