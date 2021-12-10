@@ -30,6 +30,7 @@ rainbowBtn.addEventListener("click", () => {
 })
 clearBtn.addEventListener("click", clearGrid)
 
+//when slider is used update grid
 slider.oninput = function() {
   squaresPerRow = this.value  
   gridSizeOutput.innerHTML = `${squaresPerRow} X ${squaresPerRow}`
@@ -38,6 +39,8 @@ slider.oninput = function() {
 
 function changeBackground(e){
   let color
+  
+  //rainbow selected
   if(rainbowSelected){
     let r = Math.floor(Math.random() * 255)
     let g = Math.floor(Math.random() * 255)
@@ -45,6 +48,7 @@ function changeBackground(e){
     color = `rgb(${r}, ${g}, ${b})`
   }
   
+  //shader selected
   if(shaderSelected){
     if(e.target.style.background === ""){
       color = "rgb(220, 220, 220)"
@@ -57,9 +61,11 @@ function changeBackground(e){
     }
   }
   
+  //color selected
   if(colorSelected){
     color = colorPicker.value
   }
+
   e.target.style.background = color
 }
 
